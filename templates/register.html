@@ -11,6 +11,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css" href="../static/css/register.css"> -->
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src ="../static/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="../static/css/jquery.dataTables.min.css">
 
 <script>
 $("#adduser").on("click", function(){
@@ -30,10 +32,10 @@ html,body
    	background-color: #eee;
 }
 
-/*::-webkit-scrollbar 
+::-webkit-scrollbar 
 { 
     display: none; 
-}*/
+}
 
 .header
 {
@@ -69,10 +71,11 @@ html,body
 	padding-left:2px;
 }
 
-label
+#table-wrapper
 {
-	font-size:18px;
+	margin-top:30px;
 }
+
 
 textarea:focus, input:focus{
     outline: none;
@@ -88,21 +91,23 @@ textarea:focus, input:focus{
 	height:30px;
 	border-radius: 3px;
 	border:none;
-	background-color: #0D47A1;
+	background-color: black;
 	color:white;
 	font-size:18px;
+	margin-bottom:10px;
 
 }
 
+.modal-body
+{
+	padding-top:0;
+}
 #registerform
 {
 	width:80%;
 	margin:0 auto;
-}
-
-#adduser,#uploaduser
-{
-	font-size:40;
+	padding-top:-10px;
+	box-sizing: border-box;
 }
 
 #home
@@ -117,20 +122,39 @@ a
 	text-decoration: none;
 }
 
-tr:nth-child(even) 
+.style-label
 {
-	background-color: #ffffff;
+	font-size:18px;
 }
 
+.style-checkbox,.style-radio
+{
+	box-sizing: border-box;!important
+	margin-right:3px;!important
+	font-size:18px;
+}
+
+.glyphicon
+{
+	font-size:28px;
+	margin-right:10px;
+	vertical-align: middle;
+}
+
+.upload-text
+{
+	font-size:16px;
+	font-weight:400;
+	margin-right:10px;
+	
+}
 </style>
 </head>
 
 <body>
-  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
     
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -142,23 +166,23 @@ tr:nth-child(even)
 				{%for k in data%}
 					<br>
 					{%if k.type == "textbox"%}
-					<label><b>{{k.label}}</b></label><br>	
+					<label class="style-label"><b>{{k.label}}</b></label><br>	
 						<input type="text" name='{{k.label}}' id = 'textbox' required class="form-element form-textbox" />
 					{%endif%}
 
 					{%if k.type == "checkbox"%}
-					<label><b>{{k.label}}</b></label><br>
+					<label class="style-label"><b>{{k.label}}</b></label><br>
 					{%set list1 = k.vals.split(",")%}
 						{%for l in list1%}
-						<input type="checkbox" name='{{k.label}}' value={{l}} required class="form-element form-checkbox">{{l}}
+						<input type="checkbox" name='{{k.label}}' value={{l}} required class="form-element form-checkbox style-checkbox">{{l}}
 						{%endfor%}
 					{%endif%}
 
 					{%if k.type == "radiobutton"%}
-					<label><b>{{k.label}}</b></label><br>
+					<label class="style-label"><b>{{k.label}}</b></label><br>
 					{%set list1 = k.vals.split(",")%}
 						{%for l in list1%}
-						<input type="radio" name = '{{k.label}}' value='{{l}}' required class="form-element form-radiobutton">{{l}}
+						<input type="radio" name = '{{k.label}}' value='{{l}}' required class="form-element form-radiobutton style-radio">{{l}}
 						{%endfor%}
 					{%endif%}
 
@@ -175,40 +199,61 @@ tr:nth-child(even)
 </div>
 
 	<div class="header"><a href="/">
-	<i class="fa fa-home" id="home" aria-hidden="true" ></i>&nbsp
-	</a>IECSE Registrations
+	<img src="../static/images/logo.png" style="height:40px">
+	</a> {{eventname}}
 	</div>
 
 	<div class="container"> 
-	<i class="fa fa-user" id="adduser" data-toggle="modal" data-target="#myModal"></i> &nbsp Add Member &nbsp &nbsp
+	<span class="glyphicon glyphicon-user id="adduser" data-toggle="modal" data-target="#myModal""></span><span class="upload-text">Add Member</span>
 
 	<a href="/upload/{{eventname}}">
-	<i class="fa fa-upload" id="uploaduser" aria-hidden="true"></i>&nbsp Upload data
+	<span class="glyphicon glyphicon-upload"></span> <span class="upload-text">{{length}}</span>
 	</a>
 	<br>
+	
+	<div id ="table-wrapper">
+	<table id="usertable1" class="display" style="width:100%">
 
-	<table id="usertable" style="width:100%">
-		
+		<thead>
 		  <tr>
 		  {% for k in upload_users[0] %}
 			    <th align="left">{{k}}</th>
 		  {% endfor %}
+		  		<th> </th>
+		  </tr>
+		 </thead>
+
+		 <tbody>
 		   {% for k in upload_users %}
 		  	<tr>
+
 		  		{% set member_id = [] %}
 			    {% for key in k %} 
 			    	<td>{{k[key]}}</td>
 			    	{% set temp = k['memberid'] %}
 			    	{% do member_id.append(temp) %}
 			    {% endfor %}
-			    <td> <a href="/delete/{{eventname}}/{{member_id[0]}}"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+			    <td> <a href="/delete/{{eventname}}/{{member_id[0]}}"><i class="fa fa-trash" aria-hidden="true"></i> </a></td>
 			</tr>
 		 {% endfor %}
+		 </tbody>
 	</table>
+	</div>
 
 	<form name="senderform" id ="senderform" action="{{url_for('register',eventname=eventname)}}" method='POST'>
 	<input type="hidden" id="sender" name='sender'>
 	</form>
+
+	<script>
+
+	$(document).ready(function() {
+		var table= $('#usertable1').dataTable();
+
+		$('#search').on('keyup', function() {
+			table.search(this.value).draw();
+		});
+	});
+	</script>
 </div>
 </body>
 
