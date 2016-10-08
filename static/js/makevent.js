@@ -1,15 +1,15 @@
 $(document).ready(function() {
 
     $(document).on('click', '.add-form-option-textbox', function() {
-        $('.add-form-fields-construct').append('<div class="form-element form-textbox"><span>Textbox</span><input class="form-textbox-label" placeholder="label"><input class="form-textbox-placeholder" placeholder="placeholder"></div>'); 
+        $('.add-form-fields-construct').append('<div class="form-element form-textbox"><span>Textbox</span>&nbsp &nbsp &nbsp<input class="form-control form-textbox-label" placeholder="label"></div>'); 
         });
 
     $(document).on('click', '.add-form-option-checkbox', function() {
-        $('.add-form-fields-construct').append('<div class="form-element form-checkbox"><span>Checkbox</span><input class="form-checkbox-label" placeholder="label"><input class="form-checkbox-values" placeholder="comma separated values"></div>'); 
+        $('.add-form-fields-construct').append('<div class="form-element form-checkbox"><span>Checkbox</span>&nbsp &nbsp &nbsp<input class="form-control form-checkbox-label" placeholder="label"><input class="form-control form-checkbox-values" placeholder="comma separated values"></div>'); 
         });
 
     $(document).on('click', '.add-form-option-radiobutton', function() {
-         $('.add-form-fields-construct').append('<div class="form-element form-radiobutton"><span>Radio Button</span><input class="form-radiobutton-label" placeholder="label"><input class="form-radiobutton-values" placeholder="comma separated values"></div>');
+         $('.add-form-fields-construct').append('<div class="form-element form-radiobutton"><span>Radio Button</span>&nbsp &nbsp &nbsp<input class="form-control form-radiobutton-label" placeholder="label"><input class="form-control form-radiobutton-values" placeholder="comma separated values"></div>');
     });
 
 });
@@ -29,7 +29,7 @@ $('.form-element').each(function(index) {
     if ($(this).hasClass('form-textbox')) {
         field = {
             type: 'textbox',
-            label: $(this).children('input').eq(0).val()
+            label: $(this).children('input').val()
         };
     }
     else if ($(this).hasClass('form-checkbox')) {

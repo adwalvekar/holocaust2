@@ -4,16 +4,78 @@
 
 <meta charset="UTF-8">
 <title>Verify Password</title>
-<link rel="stylesheet" type="text/css" href="../static/css/verify.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src ="../static/js/jquery.js"></script>
+<script src ="../static/js/register1.js"></script>
+<script>if (window.module) module = window.module;</script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<style>
+
+.container
+{
+	width:100%;
+	background-color: #eee;
+}
+
+.password-modal
+{
+	vertical-align: middle;
+	margin-top:300px;
+}
+
+#send
+{
+	width:95%;
+	height:30px;
+	border-radius: 3px;
+	border:none;
+	background-color: black;
+	color:white;
+	font-size:18px;
+
+}
+
+#textbox
+{
+	width:95%;
+	margin-bottom:20px;
+}
+
+</style>
 </head>
 <body>
 
-<div id="formwrapper">
-	<form id = "senderform" action="{{url_for('verify',eventname=eventname)}}" method='POST'>
-    Enter event password: <input type="password" name='passkey' id="textbox"><br>
-    <input type="submit" name="Submit" id="send">
-	</form>
-</div>	
+<div class="container">
+	
+<div class="modal fade" id="password-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"> Enter {{eventname}} password</h4>
+        </div>
+        <div class="modal-body">
+         	<div id="formwrapper">
+				<form id = "senderform" action="{{url_for('verify',eventname=eventname)}}" method='POST'>
+			    <input type="password" name='passkey' id="textbox"><br>
+			    <input type="submit" name="Submit" id="send">
+				</form>
+			</div>	
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    	{
+    		 $('#password-modal').modal('show');
+    	});       
+</script> 
 </body>
 </html>

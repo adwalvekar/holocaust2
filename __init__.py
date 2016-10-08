@@ -3,7 +3,7 @@ from flask import Flask,render_template, flash,url_for, redirect,request
 from flask_sqlalchemy import SQLAlchemy
 from tinydb import TinyDB, where, Query
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://iecseman:sierrazulufoxtrotindia@localhost/holocaust"
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = 'r8YI5oHcl^^aHh1*KklFeQl5Jt2zJMTANyIp9DCua*&qqgm1!I4m)3g5kN6p'
 app.config['DEBUG'] = True 
@@ -32,6 +32,7 @@ def makevent():
 	if request.method =="POST":
 		data_file = request.form['sender']
 		data = json.loads(data_file)
+		return data
 		query = "INSERT INTO events VALUES( default," +"'"+str(data['eventname'])+"'"+","+"'"+str(data['eventpasskey'])+"'"+","+"'"+str(data_file)+"'"+")"
 		i=0
 		db.engine.execute(query)
@@ -89,7 +90,8 @@ def register(eventname):
 	    databasecopy.insert(data)
 	    
     upload_users = database.all()
-    return render_template("register.html",data=r_data,eventname=eventname, upload_users = upload_users)
+    number_of_members = len(database)
+    return render_template("register.html",data=r_data,eventname=eventname, upload_users = upload_users,length = number_of_members)
 
 @app.route('/verify/<eventname>', methods=['GET','POST'])
 def verify(eventname):

@@ -6,33 +6,27 @@
 <title>View</title>
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src ="../static/js/jquery.js"></script>
-<script>if (window.module) module = window.module;</script>
-<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<!-- <link rel="stylesheet" href ="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css"> -->
+<script src ="../static/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="../static/css/jquery.dataTables.min.css">
 
+<script>if (window.module) module = window.module;</script>
 <style>
-	
-tr:nth-child(even) 
-{
-	background-color: #ffffff;
-}
 
 </style>
 </head>
 <body>
 
-
-
-	<input type="text" name="search" id="search">
-
-	<table id="usertable" style="width:100%">
+	<table id="usertable" class="display" style="width:100%">
 	  
+	  <thead>
 	  <tr>
 	  {% for k in data %}
 		<th align="left"> {{k.label}} </th>	
 	  {% endfor %}
 	  </tr>
-	  
+	  </thead>
+
+	  <tbody>
 	  {% for k in all_users %}
 	  	<tr>
 		    {% for l in k %}    	
@@ -40,6 +34,7 @@ tr:nth-child(even)
 		    {% endfor %}
 		</tr>
 	 {% endfor %}
+	 </tbody>
 	</table>
 
 	<script>

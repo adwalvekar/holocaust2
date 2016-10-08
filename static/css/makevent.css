@@ -1,0 +1,26 @@
+.glyphicon
+{
+    font-size:30px;
+}
+
+#send
+{
+    width:50%;
+    height:30px;
+    border-radius: 3px;
+    border:none;
+    background-color: black;
+    color:white;
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+.container
+{
+    display: inline-block;
+}
+
+.add-form-fields-construct
+{
+    margin-top:20px;
+}

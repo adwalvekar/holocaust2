@@ -18,7 +18,7 @@ html,body
 {
 	height:100px;
 	width:100%;
-	background-color: #0D47A1;
+	background-color: black;
 	font-size:26px;
 	text-align: center;
 	color:white;
@@ -52,14 +52,31 @@ li
 	text-decoration: none;
 }
 
+.list-group
+{
+	cursor:pointer;
+}
 a
 {
 	font-decoration:none;
-	font-color:white;
+	color:black;
 }
 
 #upload
 {
 	font-size:40;
 	color:white;
+}
+
+.my-tab
+{
+	font-size:20px;
+	width:33%;
+	color:black;
+	text-align:center;
+}
+
+.title
+{
+	font-size: 26px;
 }
