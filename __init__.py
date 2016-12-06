@@ -5,7 +5,7 @@ from tinydb import TinyDB, where, Query
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.secret_key = 'r8YI5oHcl^^aHh1*KklFeQl5Jt2zJMTANyIp9DCua*&qqgm1!I4m)3g5kN6p'
+app.secret_key = 'r8YI5ossdfsdfsdfHcl^^aHh1*KklFeQl5Jt2zJMTANyIp9DCua*&qqgm1!I4m)3g5kN6p'
 app.config['DEBUG'] = True 
 app.jinja_env.add_extension('jinja2.ext.do')
 db=SQLAlchemy(app)
